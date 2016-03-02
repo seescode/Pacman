@@ -97,7 +97,7 @@ public class AutoWalk : MonoBehaviour {
 
 			float y = head.transform.rotation.eulerAngles.y;
 			yText.text = y.ToString();
-			
+
 			if (y > 45 && y <= 135)
 			{
 				direction = new Vector3(head.transform.forward.x, 0, 0).normalized * speed * Time.deltaTime;
@@ -117,8 +117,27 @@ public class AutoWalk : MonoBehaviour {
 				direction = new Vector3(0, 0, head.transform.forward.z).normalized * speed * Time.deltaTime;
 			}
 
-			//Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-			transform.Translate(/*rotation * */ direction);
+			RaycastHit hit;
+			Ray landingRay = new Ray(head.transform.position, direction);
+
+			if (Physics.Raycast(landingRay, out hit, 0.5f))
+			{
+				if (hit.collider.gameObject.name == "Wall1")
+				{
+
+				}
+				else
+				{
+					transform.Translate(/*rotation * */ direction);
+				}
+			}
+			else
+			{
+				//Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+				transform.Translate(/*rotation * */ direction);
+			}
+
+
 		}
 
 		if (freezeYPosition)
