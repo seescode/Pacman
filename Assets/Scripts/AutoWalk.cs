@@ -41,6 +41,11 @@ public class AutoWalk : MonoBehaviour {
 		yText.text = "";
 	}
 
+	void OnCollisionEnter(Collision col)
+	{
+		Debug.Log("collided");
+	}
+
 	void Update()
 	{
 		// Walk when the Cardboard Trigger is used 
