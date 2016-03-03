@@ -21,9 +21,12 @@ public class AutoWalk : MonoBehaviour
 	[Tooltip("This is the fixed y-coordinate.")]
 	public float yOffset;
 
+	private Rigidbody rb;
+
 	void Start()
 	{
 		head = Camera.main.GetComponent<StereoController>().Head;
+		rb = GetComponent<Rigidbody>();
 		yText.text = "";
 	}
 
@@ -54,7 +57,7 @@ public class AutoWalk : MonoBehaviour
 		}
 
 		RaycastHit hit;
-		Ray landingRay = new Ray(head.transform.position, direction);
+		Ray landingRay = new Ray(rb.transform.position, direction);
 
 		if (Physics.Raycast(landingRay, out hit, 0.5f))
 		{
