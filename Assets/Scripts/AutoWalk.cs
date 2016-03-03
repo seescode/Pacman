@@ -58,11 +58,7 @@ public class AutoWalk : MonoBehaviour
 
 		if (Physics.Raycast(landingRay, out hit, 0.5f))
 		{
-			if (hit.collider.gameObject.name == "Wall1")
-			{
-
-			}
-			else
+			if (hit.collider.gameObject.tag != "Wall")
 			{
 				transform.Translate(/*rotation * */ direction);
 			}
