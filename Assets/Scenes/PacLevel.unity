@@ -2495,6 +2495,8 @@ GameObject:
   - 33: {fileID: 795441676}
   - 65: {fileID: 795441675}
   - 23: {fileID: 795441674}
+  - 114: {fileID: 795441678}
+  - 54: {fileID: 795441679}
   m_Layer: 0
   m_Name: Blue Ghost
   m_TagString: Untagged
@@ -2558,6 +2560,33 @@ Transform:
   - {fileID: 1965034982}
   m_Father: {fileID: 0}
   m_RootOrder: 52
+--- !u!114 &795441678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795441673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c718f14f1c76b42b83694fd62752e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pacman: {fileID: 1761281361}
+--- !u!54 &795441679
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 795441673}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &800192182
 GameObject:
   m_ObjectHideFlags: 0
