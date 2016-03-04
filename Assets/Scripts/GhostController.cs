@@ -7,21 +7,22 @@ public class GhostController : MonoBehaviour
 
 	private Rigidbody rb;
 
+	private Vector3 direction;
+
+	
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
+
+		Vector3 relativePos = pacman.position - transform.position;
+		direction = relativePos * Time.deltaTime;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-		//Make this ghost rotate to look at pacman
-		Vector3 relativePos = pacman.position - transform.position;
-		//transform.rotation = Quaternion.LookRotation(relativePos);
 
-		//Move forward based on rotation
-		///transform.position += transform.forward * Time.deltaTime;
-
-		Vector3 direction = relativePos * Time.deltaTime;
 
 		RaycastHit hit;
 		Ray landingRay = new Ray(rb.transform.position, direction);
@@ -30,13 +31,16 @@ public class GhostController : MonoBehaviour
 		{
 			if (hit.collider.gameObject.tag != "Wall")
 			{
-				transform.Translate(/*rotation * */ direction);
+				transform.Translate( /*rotation * */ direction);
+			}
+			else
+			{
+				direction = new Vector3(Random.value, 0, Random.value).normalized*Time.deltaTime;
 			}
 		}
 		else
 		{
-			//Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-			transform.Translate(/*rotation * */ direction);
+			transform.Translate(direction);
 		}
 
 	}
