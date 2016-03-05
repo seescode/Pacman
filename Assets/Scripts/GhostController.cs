@@ -9,6 +9,7 @@ public class GhostController : MonoBehaviour
 
 	private Vector3 direction;
 
+	private string way;
 	
 
 	void Start()
@@ -16,8 +17,9 @@ public class GhostController : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 
 		Vector3 relativePos = pacman.position - transform.position;
-		direction = relativePos.normalized * Time.deltaTime;
 
+		way = "south";
+		direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
 	}
 
 	// Update is called once per frame
@@ -35,35 +37,82 @@ public class GhostController : MonoBehaviour
 			}
 			else
 			{
-				transform.Translate( /*rotation * */ direction);
+				UpdateWay();
 
-				var way = Random.value;
-
-				if (way <= .25)
-				{
-					direction = new Vector3(1, 0, 0).normalized * Time.deltaTime;
-				}
-				else if (way <= .50)
-				{
-					direction = new Vector3(-1, 0, 0).normalized*Time.deltaTime;
-
-				}
-				else if (way <= .75)
+				if (way == "north")
 				{
 					direction = new Vector3(0, 0, 1).normalized * Time.deltaTime;
+				}
+				else if (way == "east")
+				{
+					direction = new Vector3(1, 0, 0).normalized*Time.deltaTime;
+				}
+				else if (way == "west")
+				{
+					direction = new Vector3(-1, 0, 0).normalized * Time.deltaTime;
 				}
 				else 
 				{
 					direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
 				}
 
-
+				transform.Translate( /*rotation * */ direction);
 			}
 		}
 		else
 		{
 			transform.Translate(direction);
 		}
+	}
 
+
+	private void UpdateWay()
+	{
+		var random = Random.value;
+
+		if (way == "north")
+		{
+			if (random <= .5)
+			{
+				way = "west";
+			}
+			else
+			{
+				way = "east";
+			}
+		}
+		else if (way == "east")
+		{
+			if (random <= .5)
+			{
+				way = "north";
+			}
+			else
+			{
+				way = "south";
+			}
+		}
+		else if (way == "west")
+		{
+			if (random <= .5)
+			{
+				way = "north";
+			}
+			else
+			{
+				way = "south";
+			}
+		}
+		else
+		{
+			if (random <= .5)
+			{
+				way = "west";
+			}
+			else
+			{
+				way = "east";
+			}
+		}
 	}
 }
