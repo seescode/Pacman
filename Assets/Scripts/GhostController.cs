@@ -16,7 +16,7 @@ public class GhostController : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 
 		Vector3 relativePos = pacman.position - transform.position;
-		direction = relativePos * Time.deltaTime;
+		direction = relativePos.normalized * Time.deltaTime;
 
 	}
 
@@ -35,7 +35,29 @@ public class GhostController : MonoBehaviour
 			}
 			else
 			{
-				direction = new Vector3(Random.value, 0, Random.value).normalized*Time.deltaTime;
+				transform.Translate( /*rotation * */ direction);
+
+				var way = Random.value;
+
+				if (way <= .25)
+				{
+					direction = new Vector3(1, 0, 0).normalized * Time.deltaTime;
+				}
+				else if (way <= .50)
+				{
+					direction = new Vector3(-1, 0, 0).normalized*Time.deltaTime;
+
+				}
+				else if (way <= .75)
+				{
+					direction = new Vector3(0, 0, 1).normalized * Time.deltaTime;
+				}
+				else 
+				{
+					direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
+				}
+
+
 			}
 		}
 		else
