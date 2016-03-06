@@ -3,9 +3,12 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class AutoWalk : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 	public Text yText;
+
+	public Text scoreDisplay;
+	private int score = 0;
 
 	CardboardHead head = null;
 
@@ -30,7 +33,22 @@ public class AutoWalk : MonoBehaviour
 		yText.text = "";
 	}
 
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Pellet")
+		{
+			Destroy(other.gameObject);
+			score += 10;
+			scoreDisplay.text = String.Format("Score: {0}", score);
+		}
+	}
+
 	void Update()
+	{
+		Move();
+	}
+
+	void Move()
 	{
 		Vector3 direction;
 
