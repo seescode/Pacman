@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
 
 	public Text scoreDisplay;
 	private int score = 0;
+
+	private PlayerStateEnum state = PlayerStateEnum.Normal;
+	
 
 	CardboardHead head = null;
 
@@ -26,6 +30,12 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody rb;
 
+
+	public float defaultX;
+	public float defaultY;
+	public float defaultZ;
+
+
 	void Start()
 	{
 		head = Camera.main.GetComponent<StereoController>().Head;
@@ -41,11 +51,34 @@ public class PlayerController : MonoBehaviour
 			score += 10;
 			scoreDisplay.text = String.Format("Score: {0}", score);
 		}
+		else if (other.gameObject.tag == "Ghost")
+		{
+			state = PlayerStateEnum.Dead;
+		}
 	}
 
 	void Update()
 	{
-		Move();
+		if (state == PlayerStateEnum.Dead)
+		{
+			DeathSequence();
+		}
+		else
+		{
+			Move();
+		}
+	}
+
+	void DeathSequence()
+	{
+		Vector3 direction = new Vector3(0, 1, 0) * speed * Time.deltaTime;
+		transform.Translate(direction);
+
+		if (rb.transform.position.y >= 10)
+		{
+			state = PlayerStateEnum.Normal;
+			rb.transform.position = new Vector3(defaultX, defaultY, defaultZ);
+		}
 	}
 
 	void Move()

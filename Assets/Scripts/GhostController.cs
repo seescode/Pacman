@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class GhostController : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class GhostController : MonoBehaviour
 		way = "south";
 		direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
 	}
+
 
 	// Update is called once per frame
 	void Update () {

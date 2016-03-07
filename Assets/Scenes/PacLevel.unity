@@ -5127,7 +5127,7 @@ GameObject:
   - 54: {fileID: 795441679}
   m_Layer: 0
   m_Name: Blue Ghost
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9395,7 +9395,7 @@ GameObject:
   - 54: {fileID: 1761281362}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9416,6 +9416,9 @@ MonoBehaviour:
   speed: 2
   freezeYPosition: 0
   yOffset: 0
+  defaultX: 0
+  defaultY: .5
+  defaultZ: -6.5
 --- !u!23 &1761281358
 MeshRenderer:
   m_ObjectHideFlags: 0
