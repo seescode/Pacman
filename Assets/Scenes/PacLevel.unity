@@ -9411,11 +9411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed39bac58f10f3645a862034fb41d8c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yText: {fileID: 328616841}
+  debugText: {fileID: 328616841}
   scoreDisplay: {fileID: 393001164}
   speed: 2
-  freezeYPosition: 0
-  yOffset: 0
   defaultX: 0
   defaultY: .5
   defaultZ: -6.5
