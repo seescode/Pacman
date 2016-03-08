@@ -34,17 +34,36 @@ public class PlayerController : MonoBehaviour
 		debugText.text = "";
 	}
 
+	void UpdateScoreBy(int points)
+	{
+		score += points;
+		scoreDisplay.text = String.Format("Score: {0}", score);
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Pellet")
 		{
 			Destroy(other.gameObject);
-			score += 10;
-			scoreDisplay.text = String.Format("Score: {0}", score);
+			UpdateScoreBy(10);
+		}
+		else if (other.gameObject.tag == "PowerUp")
+		{
+			Destroy(other.gameObject);
+			UpdateScoreBy(50);
+			state = PlayerStateEnum.PoweredUp;		
 		}
 		else if (other.gameObject.tag == "Ghost")
 		{
-			state = PlayerStateEnum.Dead;
+			if (state == PlayerStateEnum.Normal)
+			{
+				state = PlayerStateEnum.Dead;
+			}
+			else if (state == PlayerStateEnum.PoweredUp)
+			{
+				UpdateScoreBy(100);
+				Destroy(other.gameObject);
+			}
 		}
 	}
 
