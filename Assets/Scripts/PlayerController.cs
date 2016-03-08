@@ -53,6 +53,14 @@ public class PlayerController : MonoBehaviour
 			UpdateScoreBy(50);
 			state = PlayerStateEnum.PoweredUp;		
 		}
+		else if (other.gameObject.tag == "Teleport1")
+		{
+			rb.transform.position = new Vector3(7.5f, 0.5f, -0.5f);
+		}
+		else if (other.gameObject.tag == "Teleport2")
+		{
+			rb.transform.position = new Vector3(-7.5f, 0.5f, -0.5f);
+		}
 		else if (other.gameObject.tag == "Ghost")
 		{
 			if (state == PlayerStateEnum.Normal)

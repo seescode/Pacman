@@ -8,6 +8,8 @@ TagManager:
   - Pellet
   - Ghost
   - PowerUp
+  - Teleport1
+  - Teleport2
   layers:
   - Default
   - TransparentFX
