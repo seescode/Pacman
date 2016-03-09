@@ -12,6 +12,8 @@ public class GhostController : MonoBehaviour
 	private Vector3 direction;
 
 	private string way;
+
+	public Transform head;
 	
 
 	void Start()
@@ -36,7 +38,7 @@ public class GhostController : MonoBehaviour
 		{
 			if (hit.collider.gameObject.tag != "Wall")
 			{
-				transform.Translate( /*rotation * */ direction);
+				transform.Translate(direction);
 			}
 			else
 			{
@@ -45,21 +47,25 @@ public class GhostController : MonoBehaviour
 				if (way == "north")
 				{
 					direction = new Vector3(0, 0, 1).normalized * Time.deltaTime;
+					head.transform.rotation = Quaternion.Euler(0, 270, 0);
 				}
 				else if (way == "east")
 				{
 					direction = new Vector3(1, 0, 0).normalized*Time.deltaTime;
+					head.transform.rotation = Quaternion.Euler(0, 0, 0);
 				}
 				else if (way == "west")
 				{
 					direction = new Vector3(-1, 0, 0).normalized * Time.deltaTime;
+					head.transform.rotation = Quaternion.Euler(0, 180, 0);
 				}
 				else 
 				{
 					direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
+					head.transform.rotation = Quaternion.Euler(0, 90, 0);
 				}
 
-				transform.Translate( /*rotation * */ direction);
+				transform.Translate(direction);
 			}
 		}
 		else
