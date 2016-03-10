@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Timers;
 using Assets.Scripts;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 
 	private Rigidbody rb;
+	private Timer powerDownTimer;
 
 
 	public float defaultX;
@@ -51,7 +53,11 @@ public class PlayerController : MonoBehaviour
 		{
 			Destroy(other.gameObject);
 			UpdateScoreBy(50);
-			state = PlayerStateEnum.PoweredUp;		
+			state = PlayerStateEnum.PoweredUp;
+
+			powerDownTimer = new Timer(20000);
+			powerDownTimer.Elapsed += new ElapsedEventHandler(PowerDown);
+			powerDownTimer.Enabled = true; // Enable it
 		}
 		else if (other.gameObject.tag == "Teleport1")
 		{
@@ -73,6 +79,11 @@ public class PlayerController : MonoBehaviour
 				Destroy(other.gameObject);
 			}
 		}
+	}
+
+	void PowerDown(object sender, ElapsedEventArgs e)
+	{
+		state = PlayerStateEnum.Normal;
 	}
 
 	void Update()

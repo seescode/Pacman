@@ -14,7 +14,9 @@ public class GhostController : MonoBehaviour
 	private string way;
 
 	public Transform head;
-	
+
+	public Material edibleMaterial;
+
 
 	void Start()
 	{
@@ -24,6 +26,10 @@ public class GhostController : MonoBehaviour
 
 		way = "south";
 		direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
+
+		GetComponent<Renderer>().material = edibleMaterial;
+		//GetComponentInChildren<Renderer>().material = edibleMaterial;
+
 	}
 
 
