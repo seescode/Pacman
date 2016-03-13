@@ -16,7 +16,7 @@ public class GhostController : MonoBehaviour
 	public Transform head;
 
 	public Material edibleMaterial;
-
+	private Material ghostMaterial;
 
 	void Start()
 	{
@@ -27,16 +27,34 @@ public class GhostController : MonoBehaviour
 		way = "south";
 		direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
 
-		GetComponent<Renderer>().material = edibleMaterial;
-		//GetComponentInChildren<Renderer>().material = edibleMaterial;
-
+		ghostMaterial = GetComponent<Renderer>().material;
 	}
 
+	void ColorGhost(Material material)
+	{
+		GetComponent<Renderer>().material = material;
+
+		foreach (Renderer child in GetComponentsInChildren<Renderer>())
+		{
+			if (child.name == "Head")
+			{
+				child.material = material;
+			}
+		}
+	}
+
+	public void MakeGhostEdible()
+	{
+		ColorGhost(edibleMaterial);
+	}
+
+	public void MakeGhostUnedible()
+	{
+		ColorGhost(ghostMaterial);
+	}
 
 	// Update is called once per frame
 	void Update () {
-
-
 		RaycastHit hit;
 		Ray landingRay = new Ray(rb.transform.position, direction);
 
