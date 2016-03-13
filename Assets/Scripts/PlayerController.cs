@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 	public Text scoreDisplay;
 	private int score = 0;
 
-	private PlayerStateEnum state = PlayerStateEnum.Normal;
+	public PlayerStateEnum state = PlayerStateEnum.Normal;
 	
 	CardboardHead head = null;
 
@@ -59,11 +59,6 @@ public class PlayerController : MonoBehaviour
 			powerDownTimer.Elapsed += new ElapsedEventHandler(PowerDown);
 			powerDownTimer.Enabled = true; // Enable it
 
-			foreach (var ghost in GameObject.FindGameObjectsWithTag("Ghost"))
-			{
-				GhostController ghostController = ghost.GetComponent<GhostController>();
-				ghostController.MakeGhostEdible();
-			}
 		}
 		else if (other.gameObject.tag == "Teleport1")
 		{
@@ -90,12 +85,6 @@ public class PlayerController : MonoBehaviour
 	void PowerDown(object sender, ElapsedEventArgs e)
 	{
 		state = PlayerStateEnum.Normal;
-		foreach (var ghost in GameObject.FindGameObjectsWithTag("Ghost"))
-		{
-			GhostController ghostController = ghost.GetComponent<GhostController>();
-			ghostController.MakeGhostUnedible();
-		}
-
 	}
 
 	void Update()

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 using Random = UnityEngine.Random;
 
 public class GhostController : MonoBehaviour
@@ -54,7 +55,22 @@ public class GhostController : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+
+
+		//TODO make this code more efficient so that you aren't constantly changing
+		//the ghosts materials.
+		var playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+		if (playerController.state == PlayerStateEnum.Normal)
+		{
+			MakeGhostUnedible();
+		}
+		else if (playerController.state == PlayerStateEnum.PoweredUp)
+		{
+			MakeGhostEdible();
+		}
+
 		RaycastHit hit;
 		Ray landingRay = new Ray(rb.transform.position, direction);
 

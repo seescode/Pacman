@@ -14338,6 +14338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugText: {fileID: 328616841}
   scoreDisplay: {fileID: 393001164}
+  state: 0
   speed: 2
   defaultX: 0
   defaultY: .5
