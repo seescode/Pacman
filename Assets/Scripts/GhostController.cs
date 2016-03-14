@@ -19,6 +19,8 @@ public class GhostController : MonoBehaviour
 	public Material edibleMaterial;
 	private Material ghostMaterial;
 
+	private Vector3 initialPosition;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -29,6 +31,7 @@ public class GhostController : MonoBehaviour
 		direction = new Vector3(0, 0, -1).normalized * Time.deltaTime;
 
 		ghostMaterial = GetComponent<Renderer>().material;
+		initialPosition = transform.position;
 	}
 
 	void ColorGhost(Material material)
@@ -70,6 +73,11 @@ public class GhostController : MonoBehaviour
 		{
 			MakeGhostEdible();
 		}
+		else if (playerController.state == PlayerStateEnum.Dead)
+		{
+			transform.position = initialPosition;
+		}
+
 
 		RaycastHit hit;
 		Ray landingRay = new Ray(rb.transform.position, direction);

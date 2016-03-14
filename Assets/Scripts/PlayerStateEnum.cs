@@ -8,6 +8,7 @@ namespace Assets.Scripts
 	public enum PlayerStateEnum
 	{
 		Normal,
+		Dying,
 		Dead, 
 		PoweredUp
 	}

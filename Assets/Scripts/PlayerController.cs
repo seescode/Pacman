@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 		{
 			if (state == PlayerStateEnum.Normal)
 			{
-				state = PlayerStateEnum.Dead;
+				state = PlayerStateEnum.Dying;
 			}
 			else if (state == PlayerStateEnum.PoweredUp)
 			{
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
 	void Update()
 	{
-		if (state == PlayerStateEnum.Dead)
+		if (state == PlayerStateEnum.Dying || state == PlayerStateEnum.Dead)
 		{
 			DeathSequence();
 		}
@@ -104,7 +104,11 @@ public class PlayerController : MonoBehaviour
 		Vector3 direction = new Vector3(0, 1, 0) * speed * Time.deltaTime;
 		transform.Translate(direction);
 
-		if (rb.transform.position.y >= 10)
+		if (rb.transform.position.y >= 8 && rb.transform.position.y < 10)
+		{
+			state = PlayerStateEnum.Dead;
+		}
+		else if (rb.transform.position.y >= 10)
 		{
 			state = PlayerStateEnum.Normal;
 			rb.transform.position = new Vector3(defaultX, defaultY, defaultZ);
