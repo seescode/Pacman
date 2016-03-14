@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 	public float defaultY;
 	public float defaultZ;
 
+	private int totalObjectsToCollect = 155;
+
 
 	void Start()
 	{
@@ -42,12 +44,25 @@ public class PlayerController : MonoBehaviour
 		scoreDisplay.text = String.Format("Score: {0}", score);
 	}
 
+
+	void CheckWinGame()
+	{
+		Debug.Log(totalObjectsToCollect);
+
+		if (totalObjectsToCollect <= 0)
+		{
+			Debug.Log("You win");
+		}
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Pellet")
 		{
 			Destroy(other.gameObject);
 			UpdateScoreBy(10);
+			totalObjectsToCollect--;
+			CheckWinGame();
 		}
 		else if (other.gameObject.tag == "PowerUp")
 		{
@@ -59,6 +74,8 @@ public class PlayerController : MonoBehaviour
 			powerDownTimer.Elapsed += new ElapsedEventHandler(PowerDown);
 			powerDownTimer.Enabled = true; // Enable it
 
+			totalObjectsToCollect--;
+			CheckWinGame();
 		}
 		else if (other.gameObject.tag == "Teleport1")
 		{
