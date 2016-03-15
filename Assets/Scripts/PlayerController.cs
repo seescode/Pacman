@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 	public Text debugText;
-
 	public Text scoreDisplay;
+	public Text winDisplay;
+
 	private int score = 0;
 
 	public PlayerStateEnum state = PlayerStateEnum.Normal;
@@ -28,7 +29,9 @@ public class PlayerController : MonoBehaviour
 	public float defaultY;
 	public float defaultZ;
 
-	private int totalObjectsToCollect = 155;
+	private int totalObjectsCollected;
+
+	const int totalObjectsToCollect = 156;
 
 
 	void Start()
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
 		head = Camera.main.GetComponent<StereoController>().Head;
 		rb = GetComponent<Rigidbody>();
 		debugText.text = "";
+		totalObjectsCollected = 0;
 	}
 
 	void UpdateScoreBy(int points)
@@ -47,11 +51,12 @@ public class PlayerController : MonoBehaviour
 
 	void CheckWinGame()
 	{
-		Debug.Log(totalObjectsToCollect);
-
-		if (totalObjectsToCollect <= 0)
+		if (totalObjectsCollected >= totalObjectsToCollect)
 		{
-			Debug.Log("You win");
+			UpdateScoreBy(1000);
+
+			totalObjectsCollected = 0;
+			winDisplay.text = "You Win!!!";
 		}
 	}
 
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour
 		{
 			Destroy(other.gameObject);
 			UpdateScoreBy(10);
-			totalObjectsToCollect--;
+			totalObjectsCollected++;
 			CheckWinGame();
 		}
 		else if (other.gameObject.tag == "PowerUp")
@@ -74,7 +79,7 @@ public class PlayerController : MonoBehaviour
 			powerDownTimer.Elapsed += new ElapsedEventHandler(PowerDown);
 			powerDownTimer.Enabled = true; // Enable it
 
-			totalObjectsToCollect--;
+			totalObjectsCollected++;
 			CheckWinGame();
 		}
 		else if (other.gameObject.tag == "Teleport1")
